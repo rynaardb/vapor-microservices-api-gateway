@@ -1,0 +1,4 @@
+module CNIOOpenSSL {
+    umbrella "/Users/rynaard/Projects/vapor-microservices-api-gateway/.build/checkouts/swift-nio-ssl.git-7508778204778341795/Sources/CNIOOpenSSL/include"
+    export *
+}
