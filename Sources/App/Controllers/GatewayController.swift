@@ -6,6 +6,7 @@ struct GatewayController: RouteCollection {
     func boot(router: Router) throws {
         
         router.post("users", use: handle)
+        router.post("users/login", use: handle)
         
         let authMiddleware = JWTAuthMiddleware()
         let authRouter = router.grouped(authMiddleware)
@@ -20,7 +21,8 @@ struct GatewayController: RouteCollection {
 private extension GatewayController {
     
     func handle(_ req: Request) throws -> Future<Response> {
-        if req.http.urlString.hasPrefix("/users") {
+        // FIXME: Improve path checking
+        if req.http.urlString.contains("users") {
             guard let usersHost = Environment.get("USERS_HOST") else { throw Abort(.badRequest) }
             return try handle(req, host: usersHost)
         }
